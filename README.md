@@ -34,6 +34,9 @@ Use this package in cases where you need to check the input data to a method!
 
 ```sh
 npm install @p4ck493/ts-type-guard
+
+// Additional package
+npm install @p4ck493/ts-is
 ```
 
 ## Usage
