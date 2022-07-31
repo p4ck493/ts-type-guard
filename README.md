@@ -41,7 +41,7 @@ npm install @p4ck493/ts-type-guard
 ### Import
 
 ```sh
-import {TakeUntil} from "@p4ck493/ts-type-guard";
+import {GuardType} from "@p4ck493/ts-type-guard";
 ```
 
 ### Example
