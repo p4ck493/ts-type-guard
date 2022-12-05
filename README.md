@@ -44,7 +44,7 @@ npm install @p4ck493/ts-is
 ### Import
 
 ```sh
-import {GuardType} from "@p4ck493/ts-type-guard";
+import {TypeGuard} from "@p4ck493/ts-type-guard";
 ```
 
 ### Example
@@ -67,43 +67,43 @@ namespace Product {
 
 class ProductService {
 
-    @GuardType([is.productModel])
+    @TypeGuard([is.productModel])
     postItem(body: Product.Model) {
         // ...
     }
 
-    @GuardType([[is.not.null, is.not.undefined], is.productModel])
+    @TypeGuard([[is.not.null, is.not.undefined], is.productModel])
     putItem(id: string, body: Product.Model) {
         // ...
     }
     
     // OR
 
-    @GuardType([is.not.null.or.undefined, is.productModel])
+    @TypeGuard([is.not.null.or.undefined, is.productModel])
     putItem(id: string, body: Product.Model) {
         // ...
     }
     
     // Another example, when need skip some check proccess
-    @GuardType([is.number, null, is.string])
+    @TypeGuard([is.number, null, is.string])
     someMethod(one: number, two: any, three: string) {
         
     }
     
     // OR empty array, is the same case ^
-    @GuardType([is.number, [], is.string])
+    @TypeGuard([is.number, [], is.string])
     someMethod(one: number, two: any, three: string) {
 
     }
     
     // IF NEED ONLY ONE CHECK METHOD FOR ALL ARGUMENT
-    @GuardType([is.number])
+    @TypeGuard([is.number])
     someMethod(one: number, two: number, three: number) {
 
     }
 
     // ANOTHER VARIANT
-    @GuardType({
+    @TypeGuard({
         argumentTypeList: [is.not.null.or.undefined],
     })
     someMethod(one: number, two: number, three: number) {
@@ -111,7 +111,7 @@ class ProductService {
     }
 
     // ALSO YOU CAN MODIFY VARIANT OF MESSAGE
-    @GuardType({
+    @TypeGuard({
         errorType: ErrorTypeEnum.CONSOLE, // VARIANTS: THROW, CONSOLE, NONE
         argumentTypeList: [is.not.null.or.undefined],
     })
@@ -129,7 +129,7 @@ class ProductService {
 
 | Name       | Argument                    |
 |------------|-----------------------------|
-| @GuardType | array or GuardTypeInterface |
+| @TypeGuard | array or TypeGuardInterface |
 
 
 ## Contributing
