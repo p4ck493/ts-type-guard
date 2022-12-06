@@ -112,7 +112,7 @@ class ProductService {
 
     // ALSO YOU CAN MODIFY VARIANT OF MESSAGE
     @TypeGuard({
-        errorType: ErrorTypeEnum.CONSOLE, // VARIANTS: THROW, CONSOLE, NONE
+        errorType: ErrorTypeEnum.NONE, // VARIANTS: THROW, NONE
         argumentTypeList: [is.not.null.or.undefined],
     })
     someMethod(one: number, two: number, three: number) {

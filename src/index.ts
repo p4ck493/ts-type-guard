@@ -4,7 +4,6 @@ import {is} from '@p4ck493/ts-is';
 export enum ErrorTypeEnum {
     NONE,
     THROW,
-    CONSOLE,
 }
 
 export interface TypeGuardInterface {
@@ -41,7 +40,7 @@ export function TypeGuard(argument: any[] | TypeGuardInterface) {
 function checkArguments(configuration: TypeGuardRequiredInterface, args: any, propertyKey: string): void {
 
     if (configuration?.arguments?.length) {
-        const notFoundError: boolean = args.every((item: any, index: number) => {
+        const notFoundError = args.every((item: any, index: number) => {
             let methodOrList: any = configuration.arguments[index];
             if (is.undefined(methodOrList)) {
                 methodOrList = configuration.arguments[configuration.arguments.length - 1];
@@ -54,7 +53,10 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
             return true;
         });
         if (!notFoundError) {
-            errorMessage(`${String(propertyKey)}: One of the arguments has an unexpected value.`, configuration.errorType);
+            errorMessage(
+                `${String(propertyKey)}: One of the arguments has an unexpected value.`,
+                configuration.errorType
+            );
         }
     }
 
@@ -62,12 +64,15 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
 
 function checkResult(result: any, propertyKey: string, configuration: TypeGuardRequiredInterface): boolean {
 
-    let foundError: boolean = false;
+    let foundError = false;
 
     if (is.array(configuration.result)) {
         if (is.array(result)) {
             if (configuration.result.length !== result.length) {
-                errorMessage(`${String(propertyKey)}: Add more checks to check the result of the method execution.`, configuration.errorType);
+                errorMessage(
+                    `${String(propertyKey)}: Add more checks to check the result of the method execution.`,
+                    configuration.errorType
+                );
             }
             for (let i = 0; i < configuration.result.length; i++) {
                 foundError = (configuration.result[i] as any)(result[i]);
@@ -83,7 +88,10 @@ function checkResult(result: any, propertyKey: string, configuration: TypeGuardR
     }
 
     if (foundError) {
-        errorMessage(`${String(propertyKey)}: The result of the execution of the function is unexpected.`, configuration.errorType);
+        errorMessage(
+            `${String(propertyKey)}: The result of the execution of the function is unexpected.`,
+            configuration.errorType
+        );
     }
 
     return result;
@@ -99,9 +107,6 @@ function errorMessage(message: string = 'Error', typeOfError: ErrorTypeEnum) {
         switch (typeOfError) {
             case ErrorTypeEnum.THROW:
                 throw new Error(message);
-            case ErrorTypeEnum.CONSOLE:
-                console.assert(false, message);
-                break;
         }
     }
 }
