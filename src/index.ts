@@ -42,14 +42,14 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
 
     if (configuration?.arguments?.length) {
         const notFoundError: boolean = args.every((item: any, index: number) => {
-            let methodOrList: ((argument: unknown) => boolean) | any[] = configuration.arguments[index];
+            let methodOrList: any = configuration.arguments[index];
             if (is.undefined(methodOrList)) {
                 methodOrList = configuration.arguments[configuration.arguments.length - 1];
             }
             if (is.array(methodOrList)) {
                 return methodOrList.every((method: any) => method(item));
-            } else if (is.object.or.function(methodOrList)) {
-                return methodOrList(item);
+            } else if (is.Function(methodOrList)) {
+                return methodOrList.apply({}, [item]);
             }
             return true;
         });
@@ -78,11 +78,9 @@ function checkResult(result: any, propertyKey: string, configuration: TypeGuardR
         } else {
             foundError = is.false(configuration.result.every((method: any) => method(result)))
         }
-    } else if (is.object.or.function<(argument: unknown) => boolean>(configuration.result)) {
+    } else if (is.Function(configuration.result)) {
         foundError = is.false(configuration.result(result));
     }
-
-    console.log(is.function<(argument: unknown) => boolean>(configuration.result), typeof configuration.result);
 
     if (foundError) {
         errorMessage(`${String(propertyKey)}: The result of the execution of the function is unexpected.`, configuration.errorType);

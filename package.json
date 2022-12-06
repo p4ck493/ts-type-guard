@@ -81,6 +81,6 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@p4ck493/ts-is": "^3.0.3-beta.0"
+    "@p4ck493/ts-is": "^3.0.4-beta.0"
   }
 }

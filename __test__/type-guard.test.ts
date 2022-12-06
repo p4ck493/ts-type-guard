@@ -6,9 +6,9 @@ describe('takeUntil', () => {
 
     it('is function should true', () => {
 
-        console.log(typeof is.string);
+        // console.log(typeof is.string);
         // console.log(Object.prototype.toString.call(is.string));
-        console.log(Object.toString.call(is.string));
+        // console.log(Object.toString.call(is.string));
         // console.log({}.toString.call(is.string));
         expect(is.function(is.string)).toBeTruthy();
 
@@ -59,10 +59,10 @@ describe('takeUntil', () => {
 
         try {
             if (categoryMocModel.badGet() === '') {
-                console.log();
+                console.log('BAD');
             }
         } catch (e) {
-            expect(e).toBeInstanceOf(String);
+            expect(e).toBeInstanceOf(Error);
         }
 
     });
