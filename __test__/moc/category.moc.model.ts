@@ -1,6 +1,5 @@
-import {is} from '@p4ck493/ts-is';
-import {GuardType} from '../../lib';
-import {RegisterInIs} from '@p4ck493/ts-is/lib/decorators';
+import {is, RegisterInIs} from '@p4ck493/ts-is';
+import {TypeGuard} from '../../src';
 
 @RegisterInIs({
     className: 'categoryModel'
@@ -10,20 +9,33 @@ export class CategoryMocModel {
     private name: string | undefined;
     private id: number | undefined;
 
-    @GuardType([is.string])
+    @TypeGuard([is.string])
     public setName(name: string): void {
         this.name = name;
     }
 
+    @TypeGuard({
+        result: is.string
+    })
     public getName(): string {
         return <string>this.name;
     }
 
-    @GuardType([is.number])
+    @TypeGuard({
+        result: is.string,
+    })
+    public badGet(): string {
+        return <string><unknown>0;
+    }
+
+    @TypeGuard([is.number])
     public setId(id: number): void {
         this.id = id;
     }
 
+    @TypeGuard({
+        result: is.number
+    })
     public getId(): number {
         return <number>this.id;
     }

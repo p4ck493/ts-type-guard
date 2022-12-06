@@ -1,7 +1,7 @@
 
 import {is} from '@p4ck493/ts-is';
-import {GuardType} from '../../lib';
 import {CategoryMocModel} from './category.moc.model';
+import {TypeGuard} from '../../src';
 
 export class ProductMocModel {
 
@@ -9,7 +9,7 @@ export class ProductMocModel {
     private id: number | undefined;
     private category: CategoryMocModel | undefined;
 
-    @GuardType([is.string])
+    @TypeGuard([is.string])
     public setName(name: string): void {
         this.name = name;
     }
@@ -18,7 +18,7 @@ export class ProductMocModel {
         return <string>this.name;
     }
 
-    @GuardType([is.number])
+    @TypeGuard([is.number])
     public setId(id: number): void {
         this.id = id;
     }
@@ -27,7 +27,7 @@ export class ProductMocModel {
         return <number>this.id;
     }
 
-    @GuardType([is.categoryModel])
+    @TypeGuard([is.categoryModel])
     public setCategory(category: CategoryMocModel): void {
         this.category = category;
     }
