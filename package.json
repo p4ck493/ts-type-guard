@@ -18,8 +18,7 @@
     "dev": "microbundle watch",
     "build": "microbundle",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json",
-    "publish": "npm publish --access public"
+    "lint": "tslint -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -76,9 +75,6 @@
         "stringifyContentPathRegex": "\\.html$"
       }
     }
-  },
-  "directories": {
-    "lib": "lib"
   },
   "dependencies": {
     "@p4ck493/ts-is": "^3.0.4-beta.0"

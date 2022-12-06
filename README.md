@@ -1,3 +1,4 @@
+# ts-type-guard
 ![NPM Latest Version](https://img.shields.io/npm/v/@p4ck493/ts-type-guard)
 ![Downloads Count](https://img.shields.io/npm/dm/@p4ck493/ts-type-guard.svg)
 ![Bundle Size](https://packagephobia.now.sh/badge?p=@p4ck493/ts-type-guard)
@@ -9,37 +10,35 @@
 ![Stars](https://img.shields.io/github/stars/p4ck493/ts-type-guard)
 ![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fp4ck493%2Fts-type-guard)
 
-# ts-type-guard
+## 💡 Idea
 
-## Prerequisites
-
-Use this package in cases where you need to check the input data to a method!
+The idea is to make a decorator for the method that will check the input and output data of the method with the possibility of writing your own check methods or using ready ones from another package.
 
 
-## Table of contents
+## 📝 Table of contents
 
 - [ts-type-guard](#ts-type-guard)
-    - [Prerequisites](#prerequisites)
-    - [Table of contents](#table-of-contents)
-    - [Installation](#installation)
-    - [Usage](#usage)
+    - [Idea](#-idea)
+    - [Table of contents](#-table-of-contents)
+    - [Installation](#-installation)
+    - [Usage](#-usage)
         - [Import](#import)
         - [Example](#example)
-    - [API](#api)
-    - [Contributing](#contributing)
-    - [Authors](#authors)
-    - [License](#license)
+    - [API](#-api)
+    - [Contributing](#-contributing)
+    - [Authors](#-authors)
+    - [License](#-license)
 
-## Installation
+## 💿 Installation
 
 ```sh
 npm install @p4ck493/ts-type-guard
 
-// Additional package
+// If you don't want to write your own checks, download this package
 npm install @p4ck493/ts-is
 ```
 
-## Usage
+## 🙌 Usage
 
 ### Import
 
@@ -50,89 +49,75 @@ import {TypeGuard} from "@p4ck493/ts-type-guard";
 ### Example
 
 ```typescript
+import {TypeGuard} from '@p4ck493/ts-type-guard';
+import {is} from '@p4ck493/ts-is';
 
-namespace Product {
-    @RegisterInIs({
-        className: 'productModel',
-        customMethod: 'customNameOfMethod'
-    })
-    export class Model {
-        // ...
-        public static customNameOfMethod(argument: unknown): argument is Model {
-            return argument instanceof Model;
-        }
-        // ...
-    }
-}
-
-class ProductService {
-
-    @TypeGuard([is.productModel])
-    postItem(body: Product.Model) {
-        // ...
-    }
-
-    @TypeGuard([[is.not.null, is.not.undefined], is.productModel])
-    putItem(id: string, body: Product.Model) {
-        // ...
+class Class {
+    #variable;
+    
+    @TypeGuard([is.string, is.not.null.or.undefined, is.number, null])
+    exampleWithArguments(argument1, argumnt2, argument3, argument4?) {
+        return arguments;
     }
     
-    // OR
-
-    @TypeGuard([is.not.null.or.undefined, is.productModel])
-    putItem(id: string, body: Product.Model) {
-        // ...
-    }
-    
-    // Another example, when need skip some check proccess
-    @TypeGuard([is.number, null, is.string])
-    someMethod(one: number, two: any, three: string) {
-        
-    }
-    
-    // OR empty array, is the same case ^
-    @TypeGuard([is.number, [], is.string])
-    someMethod(one: number, two: any, three: string) {
-
-    }
-    
-    // IF NEED ONLY ONE CHECK METHOD FOR ALL ARGUMENT
-    @TypeGuard([is.number])
-    someMethod(one: number, two: number, three: number) {
-
-    }
-
-    // ANOTHER VARIANT
     @TypeGuard({
-        argumentTypeList: [is.not.null.or.undefined],
+        arguments: [is.string],
+        result: [is.boolean]
     })
-    someMethod(one: number, two: number, three: number) {
+    exampleWithResultAndArguments(argument) {
+        try {
+            this.#variable = JSON.parse(argument);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+
+    // If you need to skip some argument from the validation, also an alternative to NULL is an empty array []
+    @TypeGuard([is.number, null, is.string])
+    exampleWithSkupArgumentCheck(one: number, two: any, three: string) {
+        // ...
+    }
+
+    // If you write only one method, it will be used to check each argument
+    @TypeGuard([is.number])
+    exampleWithOneCheckersForEachArgument(one: number, two: number, three: number) {
 
     }
 
-    // ALSO YOU CAN MODIFY VARIANT OF MESSAGE
+    // Alternative for prev. example
+    @TypeGuard({
+        arguments: [is.not.null.or.undefined],
+    })
+    exampleAlternativeOfUsing(one: number, two: number, three: number) {
+
+    }
+
+    // If you need to turn off the error message
     @TypeGuard({
         errorType: ErrorTypeEnum.NONE, // VARIANTS: THROW, NONE
-        argumentTypeList: [is.not.null.or.undefined],
+        arguments: [is.not.null.or.undefined],
     })
-    someMethod(one: number, two: number, three: number) {
+    exampleOfTurningOffErrorMessage(one: number, two: number, three: number) {
 
     }
-    
 }
 
+const cl: Class = new Class();
+cl.exampleWithResultAndArguments({bad: 'value'}) // Bad
+cl.exampleWithResultAndArguments('') // Good
 
 ```
 
 
-## API 
+## 🗃️ API
 
 | Name       | Argument                    |
 |------------|-----------------------------|
 | @TypeGuard | array or TypeGuardInterface |
 
 
-## Contributing
+## 👤 Contributing
 
 [//]: # (Please read [CONTRIBUTING.md]&#40;CONTRIBUTING.md&#41; for details on our code of conduct, and the process for submitting pull requests to us.)
 
@@ -143,12 +128,12 @@ class ProductService {
 5. Push to the branch: `git push origin my-new-feature`
 6. Submit a pull request 😎
 
-## Authors
+## ✍️ Authors
 
 * **Ivan Karbashevskyi** - *Initial work* - [Karbashevskyi](https://github.com/Karbashevskyi)
 
 See also the list of [contributors](https://github.com/p4ck493/ts-type-guard/contributors) who participated in this project.
 
-## License
+## 📜 License
 
 [MIT License](https://andreasonny.mit-license.org/2019) © p4ck493
