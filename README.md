@@ -34,7 +34,7 @@ The idea is to make a decorator for the method that will check the input and out
 ```sh
 npm install @p4ck493/ts-type-guard
 
-// If you don't want to write your own checks, download this package
+// If you don`t want to write your own checks, download this package
 npm install @p4ck493/ts-is
 ```
 
