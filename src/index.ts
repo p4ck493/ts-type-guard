@@ -47,7 +47,7 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
       if (is.array(methodOrList)) {
         return methodOrList.every((method: any) => method(item));
       } else if (is.Function(methodOrList)) {
-        return methodOrList.apply({}, [item]);
+        return methodOrList.apply<any, any, any>({}, [item]);
       }
       return true;
     });
@@ -55,6 +55,10 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
       errorMessage(`${String(propertyKey)}: One of the arguments has an unexpected value.`, configuration.errorType);
     }
   }
+}
+
+function a(argument: unknown): boolean {
+  return true;
 }
 
 function checkResult(result: any, propertyKey: string, configuration: TypeGuardRequiredInterface): boolean {
@@ -77,7 +81,7 @@ function checkResult(result: any, propertyKey: string, configuration: TypeGuardR
     } else {
       foundError = is.false(configuration.result.every((method: any) => method(result)));
     }
-  } else if (is.Function(configuration.result)) {
+  } else if (is.Function<(argument: unknown) => boolean>(configuration.result)) {
     foundError = is.false(configuration.result(result));
   }
 
