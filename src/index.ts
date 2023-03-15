@@ -13,7 +13,7 @@ export interface TypeGuardInterface {
 
 export type TypeGuardRequiredInterface = Required<TypeGuardInterface>;
 
-export function TypeGuard(argument: any[] | TypeGuardInterface) {
+export function TypeGuard(argument: unknown[] | TypeGuardInterface) {
   const configuration: TypeGuardRequiredInterface = {
     errorType: ErrorTypeEnum.THROW,
     arguments: [is.not.null.or.undefined],
@@ -25,7 +25,7 @@ export function TypeGuard(argument: any[] | TypeGuardInterface) {
       : argument ?? {}),
   };
 
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+  return (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalFn = descriptor.value;
 
     descriptor.value = function (...args: any) {
@@ -39,7 +39,7 @@ export function TypeGuard(argument: any[] | TypeGuardInterface) {
 
 function checkArguments(configuration: TypeGuardRequiredInterface, args: any, propertyKey: string): void {
   if (configuration?.arguments?.length) {
-    const notFoundError = args.every((item: any, index: number) => {
+    const notFoundError = args.every((item: unknown, index: number) => {
       let methodOrList: any = configuration.arguments[index];
       if (is.undefined(methodOrList)) {
         methodOrList = configuration.arguments[configuration.arguments.length - 1];
@@ -55,10 +55,6 @@ function checkArguments(configuration: TypeGuardRequiredInterface, args: any, pr
       errorMessage(`${String(propertyKey)}: One of the arguments has an unexpected value.`, configuration.errorType);
     }
   }
-}
-
-function a(argument: unknown): boolean {
-  return true;
 }
 
 function checkResult(result: any, propertyKey: string, configuration: TypeGuardRequiredInterface): boolean {
