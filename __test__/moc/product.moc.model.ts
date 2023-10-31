@@ -1,7 +1,7 @@
 
-import {is} from '@p4ck493/ts-is';
 import {CategoryMocModel} from './category.moc.model';
 import {TypeGuard} from '../../src';
+import {is} from "thiis";
 
 export class ProductMocModel {
 

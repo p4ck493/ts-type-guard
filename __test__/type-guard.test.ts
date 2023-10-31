@@ -1,6 +1,6 @@
 import {CategoryMocModel} from './moc/category.moc.model';
 import {ProductMocModel} from './moc/product.moc.model';
-import {is} from '@p4ck493/ts-is';
+import {is} from "thiis";
 
 describe('takeUntil', () => {
 

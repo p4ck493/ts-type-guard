@@ -1,5 +1,5 @@
-import {is, RegisterInIs} from '@p4ck493/ts-is';
 import {TypeGuard} from '../../src';
+import {is, RegisterInIs} from "thiis";
 
 @RegisterInIs({
     className: 'categoryModel'
