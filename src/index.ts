@@ -1,4 +1,4 @@
-import { is } from '@p4ck493/ts-is';
+import { is } from 'thiis';
 
 export enum ErrorTypeEnum {
   NONE,
@@ -16,7 +16,7 @@ export type TypeGuardRequiredInterface = Required<TypeGuardInterface>;
 export function TypeGuard(argument: unknown[] | TypeGuardInterface) {
   const configuration: TypeGuardRequiredInterface = {
     errorType: ErrorTypeEnum.THROW,
-    arguments: [is.not.null.or.undefined],
+    arguments: [is.not_null_or_undefined],
     result: undefined,
     ...(is.array(argument)
       ? {
@@ -77,7 +77,7 @@ function checkResult(result: any, propertyKey: string, configuration: TypeGuardR
     } else {
       foundError = is.false(configuration.result.every((method: any) => method(result)));
     }
-  } else if (is.Function<(argument: unknown) => boolean>(configuration.result)) {
+  } else if (is.Function(configuration.result)) {
     foundError = is.false(configuration.result(result));
   }
 

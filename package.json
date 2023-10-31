@@ -76,6 +76,6 @@
     }
   },
   "dependencies": {
-    "@p4ck493/ts-is": "3.0.7"
+    "thiis": "2.0.2"
   }
 }
